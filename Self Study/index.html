@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Self study</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <script src="js/jquery-1.12.4.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/time.js"></script>
+  <link rel="stylesheet" href="css/master.css">
+  <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Self Study</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li ><a href="#">Geo location</a></li>
+      <li><a href="#">Web worker</a></li>
+      <li><a href="#">Local Storage</a></li>
+      <li><a href="#">Drag and Drop</a></li>
+      <li><a href="#">Calendar</a></li>
+      <li><a href="#">Carousel</a></li>
+      <li><a href="#">Buttons</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container-fluid nopadside">
+  <div class="row">
+    <div class="col-sm-12 color1">
+      <div class=" margintop50">
+        <div class="geolocation">
+          <div class="col-sm-4"></div>
+          <div class="col-sm-4 marginbottom20">
+            <div class="marginleft30 marginbottom20">
+            <h2 class="marginleftminus20">Geolocation</h2>
+            <h4>Your location is</h4>
+
+            <button type="button" onclick="getLocation()" class="btn btn-primary marginleft10"> Click Here </button>
+            </div>
+            <div id="map">
+
+            </div>
+
+              <script>
+              var x = document.getElementById("map");
+
+              function getLocation() {
+                  if (navigator.geolocation) {
+                      navigator.geolocation.getCurrentPosition(showPosition, showError);
+                  } else {
+                      x.innerHTML = "Geolocation is not supported by this browser.";
+                  }
+              }
+              function showPosition(position) {
+                  var latlon = position.coords.latitude + "," + position.coords.longitude;
+                  var img_url = "https://maps.googleapis.com/maps/api/staticmap?center="
+                  +latlon+"&zoom=14&markers="+latlon+"&size=400x300&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
+                  document.getElementById("map").innerHTML = "<img src='"+img_url+"'>";
+              }
+                function showError(error) {
+                  switch(error.code) {
+                      case error.PERMISSION_DENIED:
+                          x.innerHTML = "User denied the request for Geolocation."
+                          break;
+                      case error.POSITION_UNAVAILABLE:
+                          x.innerHTML = "Location information is unavailable."
+                          break;
+                      case error.TIMEOUT:
+                          x.innerHTML = "The request to get user location timed out."
+                          break;
+                      case error.UNKNOWN_ERROR:
+                          x.innerHTML = "An unknown error occurred."
+                          break;
+                  }
+              }
+              </script>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-sm-12 color2">
+      <div class="webworker">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+          <div class="marginleft30 marginbottom20">
+          <h2 class="marginleftminus20">Web worker</h2>
+          <h4 class="marginleftminus20">The Current time is</h4>
+          <h4 class="marginleft20" id="result"></h4>
+
+
+          <button type="button" id="workerStart" onclick="startWork()" class="btn btn-primary marginleft10"> Start worker</button>
+          <button type="button" id="workerEnd" onclick="stopWorker()" class="btn btn-primary marginleft10 hidden"> End worker </button>
+          <script>
+            var w;
+            var btnShow = document.getElementById("workerStart");
+            var btnHide = document.getElementById("workerEnd");
+            function startWork() {
+                if(typeof(Worker) !== "undefined") {
+                    if(typeof(w) == "undefined") {
+                        w = new Worker("js/time.js");
+                    }
+                    w.onmessage = function(event) {
+                        document.getElementById("result").innerHTML = event.data;
+                        document.getElementById("result").classList.remove("hidden");
+                        btnShow.classList.add("hidden");
+                        btnHide.classList.remove("hidden");
+                    };
+                } else {
+                    document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Workers...";
+                }
+            }
+
+            function stopWorker() {
+                w.terminate();
+                w = undefined;
+                document.getElementById("result").classList.add("hidden");
+                btnHide.classList.add("hidden");
+                btnShow.classList.remove("hidden");
+            }
+          </script>
+        </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12 color1">
+
+        <div class="localStorage">
+          <div class="col-sm-4">
+
+          </div>
+          <div class="col-sm-4">
+            <div class="marginleft30 marginbottom20">
+
+
+
+          <h2 class="marginleftminus20">Local Storage</h2>
+          <h4 class="marginleft10">Enter Text</h4>
+          <form class="">
+            <input type="text" id="textLocal" class="form-control width35 marginbottom20 marginleftminus15">
+          </form>
+          <button type="button" onclick="pushLocal()" class="btn btn-primary marginleft10 marginbottom20"> Enter data </button>
+          <h4 id="localHeading" class="hidden">Data Entered</h4>
+          <div class="localDataResult paddingleft30">
+            <p id="resultLocal"></p>
+          </div>
+
+          <script>
+          var old = localStorage.getItem("local");
+            // Check browser support
+            function pushLocal() {
+              if (typeof(Storage) !== "undefined") {
+                  // Storing
+
+                  var localData=document.getElementById("textLocal").value;
+                  //Check for old data
+
+                  if(old === null)
+                  old = "";
+                  //store
+                  localStorage.setItem("local", old+localData+"<br>");
+                  //Updating
+                  document.getElementById("resultLocal").innerHTML = localStorage.getItem("local");
+              } else {
+                  document.getElementById("resultLocal").innerHTML = "Sorry, your browser does not support Web Storage...";
+              }
+            }
+            //Show heading
+            if(old!=null)
+            {
+              var localHeading=document.getElementById("localHeading");
+              localHeading.classList.remove("hidden");
+            }
+            // Retrieve
+            document.getElementById("resultLocal").innerHTML = localStorage.getItem("local");
+
+
+
+        </script>
+        </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+
+  <div class="row">
+    <div class="col-sm-12 color2">
+      <div class="dragDrop">
+        <div class="col-sm-4">
+
+        </div>
+        <div class="col-sm-4">
+          <div class="marginleft30 marginbottom20">
+            <h2 class="marginleftminus20">Drag and Drop</h2>
+            <h4 class="marginleftminus45">Drag the image to the other box</h4>
+          </div>
+        </div>
+      </div>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 color2">
+        <div class="col-sm-2">
+
+        </div>
+        <div class="col-sm-4 ">
+          <div id="dragDiv1" class=" marginleft30 dragDropDiv " ondrop="drop(event)" ondragover="allowDrop(event)">
+            <img src="images/drag_drop_img.jpg" draggable="true" ondragstart="drag(event)" id="dragImg" >
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div id="dragDiv2" ondrop="drop(event)" class="dragDropDiv" ondragover="allowDrop(event)"></div>
+        </div>
+        <script>
+                  function allowDrop(ev) {
+                      ev.preventDefault();
+                  }
+
+                  function drag(ev) {
+                      ev.dataTransfer.setData("text", ev.target.id);
+                  }
+
+                  function drop(ev) {
+                      ev.preventDefault();
+                      var data = ev.dataTransfer.getData("text");
+                      ev.target.appendChild(document.getElementById(data));
+                  }
+        </script>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 color1">
+
+          <div class="calender">
+            <div class="col-sm-4">
+
+            </div>
+            <div class="col-sm-5">
+              <div class="marginbottom20 marginleft30">
+
+
+
+            <h2 class="marginleftminus20 ">Calendar</h2>
+              <h4 class="marginleftminus45">Static CSS calender</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+        <div class="row ">
+          <div class="col-sm-12 color1 ">
+            <div class="calendar ">
+          <div class="col-sm-3"></div>
+          <div class="col-sm-6">
+            <div id="myCalendar" class="carousel slide marginbottom20" data-ride="carousel" data-interval="false">
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner">
+                <div class="item active">
+                <div class="January">
+                  <div class="month">
+                      <ul>
+                          <a class="carousel-control calendar" href="#myCalendar" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="right-arrow carousel-control calendar" href="#myCalendar" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+              </a>
+                        <li>
+                          January<br>
+                          <span style="font-size:18px">2018</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <ul class="weekdays">
+                      <li>Mo</li>
+                      <li>Tu</li>
+                      <li>We</li>
+                      <li>Th</li>
+                      <li>Fr</li>
+                      <li>Sa</li>
+                      <li>Su</li>
+                    </ul>
+
+                    <ul class="days">
+                      <li class="notmonth">31</li>
+                      <li>1</li>
+                      <li>2</li>
+                      <li>3</li>
+                      <li>4</li>
+                      <li>5</li>
+                      <li>6</li>
+                      <li>7</li>
+                      <li>8</li>
+                      <li>9</li>
+                      <li>10</li>
+                      <li>11</li>
+                      <li>12</li>
+                      <li><span class="active">13</span></li>
+                      <li>14</li>
+                      <li>15</li>
+                      <li>16</li>
+                      <li>17</li>
+                      <li>18</li>
+                      <li>19</li>
+                      <li>20</li>
+                      <li>21</li>
+                      <li>22</li>
+                      <li>23</li>
+                      <li>24</li>
+                      <li>25</li>
+                      <li>26</li>
+                      <li>27</li>
+                      <li>28</li>
+                      <li>29</li>
+                      <li>30</li>
+                      <li>31</li>
+                      <li class="notmonth">1</li>
+                      <li class="notmonth">2</li>
+                      <li class="notmonth">3</li>
+                    </ul>
+                </div>
+                </div>
+
+
+                <div class="item">
+                        <div class="February">
+                  <div class="month">
+                      <ul>
+                          <a class="carousel-control calendar" href="#myCalendar" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="right-arrow carousel-control calendar" href="#myCalendar" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+              </a>
+                        <li>
+                          February<br>
+                          <span style="font-size:18px">2018</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <ul class="weekdays">
+                      <li>Mo</li>
+                      <li>Tu</li>
+                      <li>We</li>
+                      <li>Th</li>
+                      <li>Fr</li>
+                      <li>Sa</li>
+                      <li>Su</li>
+                    </ul>
+
+                    <ul class="days">
+                      <li class="notmonth">28</li>
+                      <li class="notmonth">29</li>
+                      <li class="notmonth">30</li>
+                      <li class="notmonth">31</li>
+
+                      <li>1</li>
+                      <li>2</li>
+                      <li>3</li>
+                      <li>4</li>
+                      <li>5</li>
+                      <li>6</li>
+                      <li>7</li>
+                      <li>8</li>
+                      <li>9</li>
+                      <li>10</li>
+                      <li>11</li>
+                      <li>12</li>
+                      <li>13</li>
+                      <li>14</li>
+                      <li>15</li>
+                      <li>16</li>
+                      <li>17</li>
+                      <li>18</li>
+                      <li>19</li>
+                      <li>20</li>
+                      <li>21</li>
+                      <li>22</li>
+                      <li>23</li>
+                      <li>24</li>
+                      <li>25</li>
+                      <li>26</li>
+                      <li>27</li>
+                      <li>28</li>
+
+                      <li class="notmonth">1</li>
+                      <li class="notmonth">2</li>
+                      <li class="notmonth">3</li>
+                    </ul>
+                </div>
+                </div>
+
+                <div class="item">
+                        <div class="March">
+                  <div class="month">
+                      <ul>
+                          <a class="carousel-control calendar" href="#myCalendar" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="right-arrow carousel-control calendar" href="#myCalendar" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+              </a>
+                        <li>
+                          March<br>
+                          <span style="font-size:18px">2018</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <ul class="weekdays">
+                      <li>Mo</li>
+                      <li>Tu</li>
+                      <li>We</li>
+                      <li>Th</li>
+                      <li>Fr</li>
+                      <li>Sa</li>
+                      <li>Su</li>
+                    </ul>
+
+                    <ul class="days">
+                      <li class="notmonth">25</li>
+                      <li class="notmonth">26</li>
+                      <li class="notmonth">27</li>
+                      <li class="notmonth">28</li>
+                      <li class="notmonth">28</li>
+
+
+                      <li>1</li>
+                      <li>2</li>
+                      <li>3</li>
+                      <li>4</li>
+                      <li>5</li>
+                      <li>6</li>
+                      <li>7</li>
+                      <li>8</li>
+                      <li>9</li>
+                      <li>10</li>
+                      <li>11</li>
+                      <li>12</li>
+                      <li>13</li>
+                      <li>14</li>
+                      <li>15</li>
+                      <li>16</li>
+                      <li>17</li>
+                      <li>18</li>
+                      <li>19</li>
+                      <li>20</li>
+                      <li>21</li>
+                      <li>22</li>
+                      <li>23</li>
+                      <li>24</li>
+                      <li>25</li>
+                      <li>26</li>
+                      <li>27</li>
+                      <li>28</li>
+
+                      <li >29</li>
+                      <li >30</li>
+                      <li >31</li>
+
+                      <li class="notmonth">1</li>
+                      <li class="notmonth">2</li>
+                      <li class="notmonth">3</li>
+                      <li class="notmonth">4</li>
+                      <li class="notmonth">5</li>
+                      <li class="notmonth">6</li>
+                    </ul>
+                </div>
+                </div>
+
+                </div>
+
+
+              </div>
+
+              <!-- Left and right controls -->
+
+
+
+
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 color2">
+        <div class="col-sm-4">
+
+        </div>
+        <div class="col-sm-5">
+          <div class="carousel-heading">
+            <div class="marginbottom20 marginleft30">
+              <h2 class="marginleftminus20 ">Carousel</h2>
+              <h4 class="marginleftminus25">Image Slideshow</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 color2">
+        <div class="col-sm-4">
+
+        </div>
+        <div class="col-sm-4">
+          <div class="carousel marginbottom20">
+
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+               <!-- Indicators -->
+               <ol class="carousel-indicators">
+                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                 <li data-target="#myCarousel" data-slide-to="1"></li>
+                 <li data-target="#myCarousel" data-slide-to="2"></li>
+               </ol>
+
+               <!-- Wrapper for slides -->
+               <div class="carousel-inner">
+                 <div class="item active">
+                   <img src="images/drag_drop_img.jpg"  style="width:100%;">
+                 </div>
+
+                 <div class="item">
+                   <img src="images/carousel-2.jpg"  style="width:100%;">
+                 </div>
+
+                 <div class="item">
+                   <img src="images/carousel-3.jpg"  style="width:100%;">
+                 </div>
+               </div>
+
+               <!-- Left and right controls -->
+               <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                 <span class="glyphicon glyphicon-chevron-left"></span>
+                 <span class="sr-only">Previous</span>
+               </a>
+               <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                 <span class="glyphicon glyphicon-chevron-right"></span>
+                 <span class="sr-only">Next</span>
+               </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 color1">
+        <div class="col-sm-4">
+
+        </div>
+        <div class="col-sm-5">
+          <div class="button-header">
+            <div class="marginbottom20 marginleft30">
+              <h2 class="marginleftminus20 ">Button</h2>
+              <h4 class="marginleftminus45">Animated Buttons</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 color1">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-5">
+          <div class="button-content marginbottom20">
+            <div class="button-img hidden marginleftminus20" id="divbtnImg">
+              <img src="images/drag_drop_img.jpg" alt="Landcape Image">
+            </div>
+            <button class="button-animated" onclick="getLoad()" id="showImg"><span class="text-animate">Show Image </span></button>
+            <button class="buttonload hidden" id="loadImg">
+            <i class="fa fa-circle-o-notch fa-spin"></i>  Loading
+            </button>
+            <button class="button-animated hidden" id="removeImg" onclick="removeImage()"><span class="text-animate">Remove Image</span></button>
+
+          </div>
+          <script type="text/javascript">
+          var showImg=document.getElementById("showImg");
+          var loadImg=document.getElementById("loadImg");
+          var removeImg=document.getElementById("removeImg");
+          var divbtnImg=document.getElementById("divbtnImg");
+            function getLoad() {
+              loadImg.classList.remove("hidden");
+              showImg.classList.add("hidden");
+              window.setTimeout(getImage, 5000);
+            }
+            function removeImage() {
+              showImg.classList.remove("hidden");
+              removeImg.classList.add("hidden");
+              divbtnImg.classList.add("hidden");
+
+            }
+            function getImage() {
+              divbtnImg.classList.remove("hidden");
+              removeImg.classList.remove("hidden");
+              loadImg.classList.add("hidden");
+
+            }
+          </script>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+</body>
+</html>
