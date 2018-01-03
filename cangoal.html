@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+ 
+<script>
+
+/*var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+/*To draw goal post 
+ctx.moveTo(100,150);
+ctx.lineTo(100,50);
+ctx.stroke();
+ctx.moveTo(100,50);
+ctx.lineTo(500,50);
+ctx.stroke();
+ctx.moveTo(500,50);
+ctx.lineTo(500,150);
+ctx.stroke();
+End draw goal post 
+*/
+</script>
+<script type="text/javascript">
+var myGamePiece;
+var leftBar;
+var crossBar;
+var rightBar;
+var flag=0;
+
+
+function startGame() {
+    myGameArea.start();
+    
+    myGamePiece = new componentCircle(300,300,20,0, 2 * Math.PI,"black");
+    //myGamePiece = new componentRect(20, 20, "blue", 300, 300);
+    leftBar = new componentRect(10, 100, "black", 100, 50); 
+    crossBar = new componentRect(400, 10, "black", 100, 50); 
+    rightBar = new componentRect(10, 100, "black", 500, 50);
+   // leftMiddle = new component(10, 10, "red", 100, 100);
+   // rightMiddle = new component(10, 10, "red", 500, 100);
+ //   midMiddle = new component(20, 20, "red", 300, 100); 
+}
+
+var myGameArea = {
+    canvas : document.createElement("canvas"),
+    start : function() {
+        this.canvas.width = 600;
+        this.canvas.height = 600;
+        this.context = this.canvas.getContext("2d");
+      document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+
+       this.interval = setInterval(updateGameArea, 20);
+
+        window.addEventListener('keydown', function (e) {
+            myGameArea.keys = e.keyCode;
+             	if (myGameArea.keys==81 && flag!=1) {
+             		animateBall(1);
+             		flag=1;
+             	}
+             	else if (myGameArea.keys==87 && flag!=1) {
+             		animateBall(2);
+             		flag=1; 
+             	}
+			   	else if (myGameArea.keys==69 && flag!=1) {
+			   		animateBall(3);
+			   		flag=1; 
+			   	}
+			    else if (myGameArea.keys==65 && flag!=1) {
+			    	animateBall(4); 
+			    	flag=1;
+			    }
+			    else if (myGameArea.keys==83 && flag!=1) {
+			    	animateBall(5);
+			    	flag=1;
+			    }
+			    else if (myGameArea.keys==68 && flag!=1) {
+			    	animateBall(6);
+			    	flag=1;
+			    }
+			    else if (myGameArea.keys==90 && flag!=1) {
+			    	animateBall(7);
+			    	flag=1;
+			    }
+			    else if (myGameArea.keys==88 && flag!=1) {
+			    	animateBall(8);
+			    	flag=1;
+			    }
+			    else if (myGameArea.keys==67 && flag!=1) {
+			    	animateBall(9);
+			    	flag=1;
+			    }
+
+        })
+        /*window.addEventListener('keyup', function (e) {
+             myGameArea.keys[e.keyCode] = false; 
+            console.log( myGameArea.keys[e.keyCode]);          
+        })*/
+    }, 
+    clear : function(){
+    	
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        //this.context.globalCompositeOperation = 'destination-out';
+       // myGameArea.context.globalCompositeOperation = 'destination-out';
+
+    }
+
+}
+
+function componentRect(width, height, color, x, y) {
+    this.gamearea = myGameArea;
+    this.width = width;
+    this.height = height;
+    this.speedX = 0;
+    this.speedY = 0;    
+    this.x = x;
+    this.y = y;    
+    this.update = function() {
+        ctx = myGameArea.context;
+        ctx.fillStyle = color;
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
+    this.newPos = function() {
+        this.x += this.speedX;
+        this.y += this.speedY;        
+    }    
+}
+
+function componentCircle(x,y,r,sAngle,eAngle,color) {
+    this.gamearea = myGameArea;
+    
+    this.speedX = 0;
+    this.radius=r;
+    this.sAngle=sAngle;
+    this.eAngle=eAngle;
+    this.speedY = 0;    
+    this.x = x;
+    this.y = y;    
+    this.update = function() {
+        ctxpiece = myGameArea.context;
+
+       ctxpiece.arc(this.x,this.y,this.radius,this.sAngle,this.eAngle);
+       ctxpiece.stroke();
+       ctxpiece.closePath();
+       ctxpiece.fillStyle = this.color;
+    	ctxpiece.fill();
+    }
+    this.newPos = function() {
+        this.x += this.speedX;
+        this.y += this.speedY;  
+
+    }
+    this.clear=function()
+    {	/*ctxpiece=myGameArea.context;
+    	ctxpiece.arc(this.x,this.y,0,this.sAngle,this.eAngle);
+       
+       ctxpiece.closePath();
+       ctxpiece.fillStyle = "#FFFFFF";
+    	ctxpiece.fill();*/
+    	// ctxpiece.clearRect(0,0, this.width, this.height);
+  		//myGamePiece.update();
+  		//raf = window.requestAnimationFrame(update);
+  		//console.log(ctxpiece);
+    	//myGamePiece.globalCompositeOperation = 'destination-out';
+    	
+    	 //this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+    /*	ctxpiece.save();
+	ctxpiece.beginPath();
+	ctxpiece.arc(this.x, this.y, this.radius, 0, 2*Math.PI, true);
+	ctxpiece.clip();
+	ctxpiece.clearRect(x-radius,y-radius,radius*2,radius*2);
+	ctxpiece.restore();*/
+    	console.log("clear");
+    }    
+}
+
+function animateBall(direction)
+{
+	myGameArea.clear();
+
+    myGamePiece.speedX = 0;
+    myGamePiece.speedY = 0;  
+	console.log(direction);
+	//Top row ball aniamtion
+	if(direction==1)
+	{
+		
+		var i=0;
+		setInterval(function(){
+				if(i<190)
+				{
+				myGamePiece.speedX = -1;
+				myGamePiece.speedY = -1.265;
+					myGamePiece.clear();
+					myGamePiece.newPos();    
+	    			
+	    			myGamePiece.update();
+	    			i++;
+				}
+		},10);
+		
+	
+    }
+    if(direction==2)
+	{
+		var i=0;
+		setInterval(function(){
+				if(i<190)
+				{
+				
+				myGamePiece.speedY = -1.265;
+				i++;
+					myGamePiece.newPos();    
+	    			myGamePiece.update();
+	    		}
+		},1);
+    }
+    if(direction==3)
+	{
+		var i=0;
+		setInterval(function(){
+				if(i<190)
+				{
+				myGamePiece.speedX = 0.95;
+				myGamePiece.speedY = -1.265;
+				
+					myGamePiece.newPos();    
+	    			myGamePiece.update();
+
+	    			i++;
+				}
+				},1);
+    }
+    
+    //end top row ball animation
+    //Middle row ball animation
+    if(direction==4)
+	{
+		
+		var i=0;
+		setInterval(function(){
+				if(i<190)
+				{
+				myGamePiece.speedX = -1;
+				myGamePiece.speedY = -1.08;
+				
+					myGamePiece.newPos();    
+	    			myGamePiece.update();
+	    			
+	    			i++;
+				}
+		},1);
+		
+	
+    }
+    if(direction==5)
+	{
+		var i=0;
+		setInterval(function(){
+				if(i<190)
+				{
+				
+				myGamePiece.speedY = -1.08;
+				i++;
+					myGamePiece.newPos();    
+	    			myGamePiece.update();
+	    			
+	    		}
+		},1);
+    }
+    if(direction==6)
+	{
+		var i=0;
+		setInterval(function(){
+				if(i<190)
+				{
+				myGamePiece.speedX = 0.95;
+				myGamePiece.speedY = -1.08;
+				
+					myGamePiece.newPos(); 
+					    
+	    			myGamePiece.update();
+	    			i++;
+				}
+				},1);
+    }
+    
+    //End Middle row ball animation
+    //Bottom row ball animation
+    if(direction==7)
+	{
+		var i=0;
+		setInterval(function(){
+				if(i<190)
+				{
+				myGamePiece.speedX = -1;
+				myGamePiece.speedY = -0.895;
+				
+					myGamePiece.newPos();    
+	    			myGamePiece.update();
+	    			i++;
+				}
+				},1);
+    }
+
+    if(direction==8)
+	{
+		var i=0;
+		setInterval(function(){
+				if(i<190)
+				{
+				
+				myGamePiece.speedY = -0.895;
+				
+					myGamePiece.newPos();    
+	    			myGamePiece.update();
+	    			i++;
+				}
+				},1);
+    }
+    if(direction==9)
+	{
+		var i=0;
+		setInterval(function(){
+				if(i<190)
+				{
+				myGamePiece.speedX = 0.95;
+				myGamePiece.speedY = -0.895;
+				
+					myGamePiece.newPos();    
+	    			myGamePiece.update();
+	    			i++;
+				}
+				},1);
+    }
+    //End bottom row ball animation
+}
+	
+
+
+function updateGameArea() {
+    myGameArea.clear();
+    myGamePiece.speedX = 0;
+    myGamePiece.speedY = 0;    
+	myGamePiece.newPos();    
+    myGamePiece.update();
+    leftBar.update();
+    crossBar.update();
+    rightBar.update();
+   // leftMiddle.update();
+   // rightMiddle.update();
+   // midMiddle.update();
+
+}
+
+</script>
+<style type="text/css">
+	.hide
+	{
+		display: none;
+	}
+</style>
+</head>
+
+<body onload="startGame()">
+
+<div class="hide">
+	<img src="Images/Football.png"/>
+	</div>
+</body>
+</html>
