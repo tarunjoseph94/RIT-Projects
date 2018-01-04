@@ -8,42 +8,45 @@
   <script src="js/jquery-1.12.4.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/time.js"></script>
+
   <link rel="stylesheet" href="css/master.css">
   <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
 </head>
-<body>
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
+
       <a class="navbar-brand" href="#">Self Study</a>
     </div>
-    <ul class="nav navbar-nav">
-      <li ><a href="#">Geo location</a></li>
-      <li><a href="#">Web worker</a></li>
-      <li><a href="#">Local Storage</a></li>
-      <li><a href="#">Drag and Drop</a></li>
-      <li><a href="#">Calendar</a></li>
-      <li><a href="#">Carousel</a></li>
-      <li><a href="#">Buttons</a></li>
+    <ul class="nav navbar-nav" id="myNavbar">
+      <li ><a href="#geolocationheading">Geo location</a></li>
+      <li><a href="#webworkerheading">Web worker</a></li>
+      <li><a href="#localstorageheading">Local Storage</a></li>
+      <li><a href="#draganddropheading">Drag and Drop</a></li>
+      <li><a href="#calendarheading">Calendar</a></li>
+      <li><a href="#carouselheading">Carousel</a></li>
+      <li><a href="#buttonsheading">Buttons</a></li>
     </ul>
   </div>
 </nav>
 
 <div class="container-fluid nopadside">
+
   <div class="row">
-    <div class="col-sm-12 color1">
+    <div class="col-sm-12 color1 fullHeight" id="geolocationheading">
       <div class=" margintop50">
         <div class="geolocation">
-          <div class="col-sm-4"></div>
-          <div class="col-sm-4 marginbottom20">
-            <div class="marginleft30 marginbottom20">
-            <h2 class="marginleftminus20">Geolocation</h2>
-            <h4>Your location is</h4>
+          <div class="col-sm-5"></div>
+          <div class="col-sm-5 marginbottom20">
+            <div class=" marginbottom20 margintop25">
+            <h1 class="fontsizeH1">Geolocation</h1>
+            <h3 class="marginleft10per fontsizeH3">Your location is</h3>
 
-            <button type="button" onclick="getLocation()" class="btn btn-primary marginleft10"> Click Here </button>
+            <button type="button" onclick="getLocation()" class="btn btnsize btn-primary marginleft6"> Click Here </button>
             </div>
-            <div id="map">
+            <div id="map" class="marginleftminus15">
 
             </div>
 
@@ -88,18 +91,18 @@
 
   </div>
   <div class="row">
-    <div class="col-sm-12 color2">
+    <div class="col-sm-12 color2 fullHeight" id="webworkerheading">
       <div class="webworker">
-        <div class="col-sm-4"></div>
-        <div class="col-sm-4">
-          <div class="marginleft30 marginbottom20">
-          <h2 class="marginleftminus20">Web worker</h2>
-          <h4 class="marginleftminus20">The Current time is</h4>
-          <h4 class="marginleft20" id="result"></h4>
+        <div class="col-sm-5"></div>
+        <div class="col-sm-5">
+          <div class=" marginbottom20 margintop25">
+          <h1 class="fontsizeH1">Web worker</h1>
+          <h3 class="fontsizeH3">The Current time is</h3>
+          <h3 class="fontsizeH3 marginleft15" id="result"></h3>
 
 
-          <button type="button" id="workerStart" onclick="startWork()" class="btn btn-primary marginleft10"> Start worker</button>
-          <button type="button" id="workerEnd" onclick="stopWorker()" class="btn btn-primary marginleft10 hidden"> End worker </button>
+          <button type="button" id="workerStart" onclick="startWork()" class="btn btnsize btn-primary marginleft10"> Start worker</button>
+          <button type="button" id="workerEnd" onclick="stopWorker()" class="btn btnsize btn-primary marginleft10 hidden"> End worker </button>
           <script>
             var w;
             var btnShow = document.getElementById("workerStart");
@@ -136,30 +139,32 @@
   </div>
 
   <div class="row">
-    <div class="col-sm-12 color1">
+    <div class="col-sm-12 color1 fullHeight" id="localstorageheading">
 
         <div class="localStorage">
-          <div class="col-sm-4">
+          <div class="col-sm-5">
 
           </div>
-          <div class="col-sm-4">
-            <div class="marginleft30 marginbottom20">
+          <div class="col-sm-5 ">
+            <div class="margintop25 marginbottom20">
 
 
 
-          <h2 class="marginleftminus20">Local Storage</h2>
-          <h4 class="marginleft10">Enter Text</h4>
+          <h1 class="fontsizeH1 marginleftminus45">Local Storage</h1>
+          <h3 class="fontsizeH3 marginleft10per">Enter Text</h3>
           <form class="">
-            <input type="text" id="textLocal" class="form-control width35 marginbottom20 marginleftminus15">
+            <input type="text" id="textLocal" class="form-control width50 height50px fontsize25 marginbottom20 marginleft5">
           </form>
-          <button type="button" onclick="pushLocal()" class="btn btn-primary marginleft10 marginbottom20"> Enter data </button>
-          <h4 id="localHeading" class="hidden">Data Entered</h4>
-          <div class="localDataResult paddingleft30">
-            <p id="resultLocal"></p>
+          <button type="button" onclick="pushLocal()" class="btn btn-primary btnsize marginleft10 marginbottom20"> Enter data </button>
+          <div class="localDataResult marginleft6">
+          <h3 id="localHeading" class="hidden fontsizeH3 ">Data Entered</h3>
+
+            <h3 id="resultLocal" class="fontsizeH3 paddingleft30"></h3>
           </div>
 
           <script>
           var old = localStorage.getItem("local");
+          var localHeading=document.getElementById("localHeading");
             // Check browser support
             function pushLocal() {
               if (typeof(Storage) !== "undefined") {
@@ -174,6 +179,7 @@
                   localStorage.setItem("local", old+localData+"<br>");
                   //Updating
                   document.getElementById("resultLocal").innerHTML = localStorage.getItem("local");
+                  localHeading.classList.remove("hidden");
               } else {
                   document.getElementById("resultLocal").innerHTML = "Sorry, your browser does not support Web Storage...";
               }
@@ -181,7 +187,7 @@
             //Show heading
             if(old!=null)
             {
-              var localHeading=document.getElementById("localHeading");
+
               localHeading.classList.remove("hidden");
             }
             // Retrieve
@@ -198,15 +204,15 @@
 
 
   <div class="row">
-    <div class="col-sm-12 color2">
+    <div class="col-sm-12 color2 halfHeight40" id="draganddropheading">
       <div class="dragDrop">
-        <div class="col-sm-4">
+        <div class="col-sm-5">
 
         </div>
-        <div class="col-sm-4">
-          <div class="marginleft30 marginbottom20">
-            <h2 class="marginleftminus20">Drag and Drop</h2>
-            <h4 class="marginleftminus45">Drag the image to the other box</h4>
+        <div class="col-sm-6">
+          <div class="margintop25 marginbottom20">
+            <h1 class="fontsizeH1 marginleftminus45">Drag and Drop</h1>
+            <h3 class="fontsizeH3 marginleftminus15per">Drag the image to the other box</h3>
           </div>
         </div>
       </div>
@@ -214,12 +220,12 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-12 color2">
+      <div class="col-sm-12 color2 halfHeight60">
         <div class="col-sm-2">
 
         </div>
         <div class="col-sm-4 ">
-          <div id="dragDiv1" class=" marginleft30 dragDropDiv " ondrop="drop(event)" ondragover="allowDrop(event)">
+          <div id="dragDiv1" class=" dragDropDiv " ondrop="drop(event)" ondragover="allowDrop(event)">
             <img src="images/drag_drop_img.jpg" draggable="true" ondragstart="drag(event)" id="dragImg" >
           </div>
         </div>
@@ -245,19 +251,19 @@
     </div>
 
     <div class="row">
-      <div class="col-sm-12 color1">
+      <div class="col-sm-12 color1 halfHeight40" id="calendarheading">
 
           <div class="calender">
-            <div class="col-sm-4">
+            <div class="col-sm-5">
 
             </div>
             <div class="col-sm-5">
-              <div class="marginbottom20 marginleft30">
+              <div class="margintop25">
 
 
 
-            <h2 class="marginleftminus20 ">Calendar</h2>
-              <h4 class="marginleftminus45">Static CSS calender</h4>
+            <h1 class="fontsizeH1 ">Calendar</h1>
+              <h3 class="marginleftminus45 fontsizeH3">Static CSS calender</h3>
           </div>
         </div>
       </div>
@@ -265,10 +271,10 @@
   </div>
 
         <div class="row ">
-          <div class="col-sm-12 color1 ">
+          <div class="col-sm-12 color1 halfHeight60 ">
             <div class="calendar ">
           <div class="col-sm-3"></div>
-          <div class="col-sm-6">
+          <div class="col-sm-7">
             <div id="myCalendar" class="carousel slide marginbottom20" data-ride="carousel" data-interval="false">
               <!-- Wrapper for slides -->
               <div class="carousel-inner">
@@ -508,27 +514,27 @@
         </div>
     </div>
     <div class="row">
-      <div class="col-sm-12 color2">
-        <div class="col-sm-4">
+      <div class="col-sm-12 color2 halfHeight40" id="carouselheading">
+        <div class="col-sm-5">
 
         </div>
         <div class="col-sm-5">
           <div class="carousel-heading">
-            <div class="marginbottom20 marginleft30">
-              <h2 class="marginleftminus20 ">Carousel</h2>
-              <h4 class="marginleftminus25">Image Slideshow</h4>
+            <div class="marginbottom20 margintop25">
+              <h1 class="fontsizeH1 ">Carousel</h1>
+              <h3 class="fontsizeH3">Image Slideshow</h3>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-12 color2">
-        <div class="col-sm-4">
+      <div class="col-sm-12 color2 halfHeight60">
+        <div class="col-sm-5">
 
         </div>
         <div class="col-sm-4">
-          <div class="carousel marginbottom20">
+          <div class="carousel marginbottom20 marginleftminus30">
 
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
                <!-- Indicators -->
@@ -568,25 +574,25 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-12 color1">
-        <div class="col-sm-4">
+      <div class="col-sm-12 color1 halfHeight40" id="buttonsheading">
+        <div class="col-sm-5">
 
         </div>
         <div class="col-sm-5">
           <div class="button-header">
-            <div class="marginbottom20 marginleft30">
-              <h2 class="marginleftminus20 ">Button</h2>
-              <h4 class="marginleftminus45">Animated Buttons</h4>
+            <div class="marginbottom20 margintop25">
+              <h1 class="fontsizeH1 marginleft5">Buttons</h1>
+              <h3 class="fontsizeH3">Animated Buttons</h3>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-12 color1">
-        <div class="col-sm-4"></div>
+      <div class="col-sm-12 color1 halfHeight60">
+        <div class="col-sm-5"></div>
         <div class="col-sm-5">
-          <div class="button-content marginbottom20">
+          <div class=" marginbottom20">
             <div class="button-img hidden marginleftminus20" id="divbtnImg">
               <img src="images/drag_drop_img.jpg" alt="Landcape Image">
             </div>
@@ -631,6 +637,6 @@
 
 
 
-
+  <script src="js/smoothScroll.js"></script>
 </body>
 </html>
