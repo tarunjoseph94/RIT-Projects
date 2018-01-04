@@ -3,21 +3,88 @@
   padding-left: 0px;
   padding-right: 0px;
 }
+.fullHeight
+{
+  height: 100vh;
+}
+.halfHeight40
+{
+  height: 40vh;
+}
+.halfHeight60
+{
+  height: 60vh;
+}
 .color1
 {
   background: #bdc3c7;
-  height: auto;
+
+}
+.btnsize
+{
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 300px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
 }
 .color2
 {
   background: #7f8c8d;
 
+
+}
+.marginleftminus30
+{
+  margin-left: -30%;
 }
 .margintop50
 {
   margin-top: 50px;
 }
+.margintop25
+{
+  margin-top: 25%;
+}
+.margintop65
+{
+  margin-top: 65%;
+}
 
+.marginleft10per
+{
+  margin-left: 10%;
+}
+.marginleft5
+{
+  margin-left: 5%;
+}
+.marginleft6
+{
+  margin-left: 6%;
+}
+.marginleft15
+{
+  margin-left: 15%;
+}
+.width50
+{
+  width:50%;
+}
+.height50px
+{
+  height: 50px;
+}
+.fontsize25
+{
+  font-size: 25px;
+}
+.marginleftminus15per
+{
+  margin-left: -15%;
+}
 .marginbottom20
 {
   margin-bottom: 20px;
@@ -33,6 +100,14 @@
 .marginleft20
 {
   margin-left: 20px;
+}
+.fontsizeH1
+{
+  font-size: 60px;
+}
+.fontsizeH3
+{
+  font-size: 35px;
 }
 .hidden
 {
@@ -149,6 +224,8 @@ body {font-family: Verdana, sans-serif;}
 {
   margin-left: -25px;
 }
+
+
 /*Animated Button*/
 .button-animated {
   border-radius: 4px;
