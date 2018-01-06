@@ -38,9 +38,9 @@
     <div class="col-sm-12 color1 fullHeight" id="geolocationheading">
       <div class=" margintop50">
         <div class="geolocation">
-          <div class="col-sm-5"></div>
+          <div class="col-sm-4"></div>
           <div class="col-sm-5 marginbottom20">
-            <div class=" marginbottom20 margintop25">
+            <div class="marginleft5 marginbottom20 margintop25">
             <h1 class="fontsizeH1">Geolocation</h1>
             <h3 class="marginleft10per fontsizeH3">Your location is</h3>
 
@@ -93,9 +93,9 @@
   <div class="row">
     <div class="col-sm-12 color2 fullHeight" id="webworkerheading">
       <div class="webworker">
-        <div class="col-sm-5"></div>
+        <div class="col-sm-4"></div>
         <div class="col-sm-5">
-          <div class=" marginbottom20 margintop25">
+          <div class="marginleft5 marginbottom20 margintop25">
           <h1 class="fontsizeH1">Web worker</h1>
           <h3 class="fontsizeH3">The Current time is</h3>
           <h3 class="fontsizeH3 marginleft15" id="result"></h3>
@@ -142,11 +142,11 @@
     <div class="col-sm-12 color1 fullHeight" id="localstorageheading">
 
         <div class="localStorage">
-          <div class="col-sm-5">
+          <div class="col-sm-4">
 
           </div>
           <div class="col-sm-5 ">
-            <div class="margintop25 marginbottom20">
+            <div class=" marginleft5 margintop25 marginbottom20">
 
 
 
@@ -156,7 +156,7 @@
             <input type="text" id="textLocal" class="form-control width50 height50px fontsize25 marginbottom20 marginleft5">
           </form>
           <button type="button" onclick="pushLocal()" class="btn btn-primary btnsize marginleft10 marginbottom20"> Enter data </button>
-          <div class="localDataResult marginleft6">
+          <div class="localDataResult marginleft6 marginbottom20">
           <h3 id="localHeading" class="hidden fontsizeH3 ">Data Entered</h3>
 
             <h3 id="resultLocal" class="fontsizeH3 paddingleft30"></h3>
@@ -206,7 +206,7 @@
   <div class="row">
     <div class="col-sm-12 color2 halfHeight40" id="draganddropheading">
       <div class="dragDrop">
-        <div class="col-sm-5">
+        <div class="col-sm-4">
 
         </div>
         <div class="col-sm-6">
@@ -254,11 +254,11 @@
       <div class="col-sm-12 color1 halfHeight40" id="calendarheading">
 
           <div class="calender">
-            <div class="col-sm-5">
+            <div class="col-sm-4">
 
             </div>
             <div class="col-sm-5">
-              <div class="margintop25">
+              <div class="margintop25 marginleft8">
 
 
 
@@ -273,7 +273,7 @@
         <div class="row ">
           <div class="col-sm-12 color1 halfHeight60 ">
             <div class="calendar ">
-          <div class="col-sm-3"></div>
+          <div class="col-sm-2 marginleft3"></div>
           <div class="col-sm-7">
             <div id="myCalendar" class="carousel slide marginbottom20" data-ride="carousel" data-interval="false">
               <!-- Wrapper for slides -->
@@ -515,14 +515,14 @@
     </div>
     <div class="row">
       <div class="col-sm-12 color2 halfHeight40" id="carouselheading">
-        <div class="col-sm-5">
+        <div class="col-sm-4">
 
         </div>
         <div class="col-sm-5">
           <div class="carousel-heading">
-            <div class="marginbottom20 margintop25">
+            <div class="marginbottom20 margintop25 marginleft8">
               <h1 class="fontsizeH1 ">Carousel</h1>
-              <h3 class="fontsizeH3">Image Slideshow</h3>
+              <h3 class="fontsizeH3 marginleftminus5">Image Slideshow</h3>
             </div>
           </div>
         </div>
@@ -530,11 +530,11 @@
     </div>
     <div class="row">
       <div class="col-sm-12 color2 halfHeight60">
-        <div class="col-sm-5">
+        <div class="col-sm-4">
 
         </div>
-        <div class="col-sm-4">
-          <div class="carousel marginbottom20 marginleftminus30">
+        <div class="col-sm-4 marginleft2">
+          <div class="carousel marginbottom20 marginleftminus30 ">
 
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
                <!-- Indicators -->
@@ -575,13 +575,13 @@
     </div>
     <div class="row">
       <div class="col-sm-12 color1 halfHeight40" id="buttonsheading">
-        <div class="col-sm-5">
+        <div class="col-sm-4">
 
         </div>
         <div class="col-sm-5">
           <div class="button-header">
-            <div class="marginbottom20 margintop25">
-              <h1 class="fontsizeH1 marginleft5">Buttons</h1>
+            <div class="marginbottom20 margintop25 marginleft5">
+              <h1 class="fontsizeH1 marginleft7">Buttons</h1>
               <h3 class="fontsizeH3">Animated Buttons</h3>
             </div>
           </div>
@@ -590,9 +590,9 @@
     </div>
     <div class="row">
       <div class="col-sm-12 color1 halfHeight60">
-        <div class="col-sm-5"></div>
+        <div class="col-sm-4"></div>
         <div class="col-sm-5">
-          <div class=" marginbottom20">
+          <div class=" marginbottom20 marginleft5">
             <div class="button-img hidden marginleftminus20" id="divbtnImg">
               <img src="images/drag_drop_img.jpg" alt="Landcape Image">
             </div>
@@ -600,12 +600,16 @@
             <button class="buttonload hidden" id="loadImg">
             <i class="fa fa-circle-o-notch fa-spin"></i>  Loading
             </button>
-            <button class="button-animated hidden" id="removeImg" onclick="removeImage()"><span class="text-animate">Remove Image</span></button>
+            <button class="buttonload hidden" id="unloadImg">
+            <i class="fa fa-circle-o-notch fa-counter-spin"></i>  Unloading
+            </button>
+            <button class="button-animated hidden" id="removeImg" onclick="getUnload()"><span class="text-animate">Remove Image</span></button>
 
           </div>
           <script type="text/javascript">
           var showImg=document.getElementById("showImg");
           var loadImg=document.getElementById("loadImg");
+          var unloadImg=document.getElementById("unloadImg");
           var removeImg=document.getElementById("removeImg");
           var divbtnImg=document.getElementById("divbtnImg");
             function getLoad() {
@@ -613,11 +617,17 @@
               showImg.classList.add("hidden");
               window.setTimeout(getImage, 5000);
             }
+            function getUnload()
+            {
+            	unloadImg.classList.remove("hidden");
+              	removeImg.classList.add("hidden");
+              	window.setTimeout(removeImage, 5000);
+            }
             function removeImage() {
               showImg.classList.remove("hidden");
               removeImg.classList.add("hidden");
               divbtnImg.classList.add("hidden");
-
+              unloadImg.classList.add("hidden");
             }
             function getImage() {
               divbtnImg.classList.remove("hidden");
