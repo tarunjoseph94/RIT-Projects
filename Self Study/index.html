@@ -49,7 +49,8 @@
             </div>
 
               <script>
-              var x = document.getElementById("map");
+              //Get div div for displying maps
+              //var x = document.getElementById("map");
 
               function getLocation() {
                   if (navigator.geolocation) {
@@ -106,8 +107,10 @@
             var btnShow = document.getElementById("workerStart");
             var btnHide = document.getElementById("workerEnd");
             function startWork() {
+            	//Check if worker alrady exists
                 if(typeof(Worker) !== "undefined") {
                     if(typeof(w) == "undefined") {
+                    	//Create a new web worker
                         w = new Worker("js/time.js");
                     }
                     w.onmessage = function(event) {
@@ -122,7 +125,9 @@
             }
 
             function stopWorker() {
+            	//stop the current worker
                 w.terminate();
+                //To reuse the variable for use later 
                 w = undefined;
                 document.getElementById("result").classList.add("hidden");
                 btnHide.classList.add("hidden");
@@ -166,29 +171,33 @@
             // Check browser support
             function pushLocal() {
               if (typeof(Storage) !== "undefined") {
-                  // Storing
+                  // Take data from textbox adn store in  variable localData
 
                   var localData=document.getElementById("textLocal").value;
                   //Check for old data
 
                   if(old === null)
+                  {
                   old = "";
-                  //store
+              		}
+                  //store the data in the from the variabel in local storage
                   localStorage.setItem("local", old+localData+"<br>");
-                  //Updating
+                  //Retrive the data stored after entering
                   document.getElementById("resultLocal").innerHTML = localStorage.getItem("local");
+                  //Show heading
                   localHeading.classList.remove("hidden");
               } else {
+
                   document.getElementById("resultLocal").innerHTML = "Sorry, your browser does not support Web Storage...";
               }
             }
-            //Show heading
+            //Show heading if data already entered
             if(old!=null)
             {
 
               localHeading.classList.remove("hidden");
             }
-            // Retrieve
+            // Retrieve data for refresh
             document.getElementById("resultLocal").innerHTML = localStorage.getItem("local");
 
 
@@ -232,16 +241,21 @@
         </div>
         <script>
                   function allowDrop(ev) {
+                      //prevents deafult browser handling of the event
                       ev.preventDefault();
                   }
 
                   function drag(ev) {
-                      ev.dataTransfer.setData("text", ev.target.id);
-                  }
+                  	//set data of type dragDropImg with the value of the target div (dragDiv1,dragDiv2)
+                      ev.dataTransfer.setData("dragDropImg", ev.target.id);
+                  }	
 
                   function drop(ev) {
+                  	//prevents deafult browser handling of the event
                       ev.preventDefault();
-                      var data = ev.dataTransfer.getData("text");
+                      //Get data of type dragDropImg adn save it in data
+                      var data = ev.dataTransfer.getData("dragDropImg");
+                      //Append the dragged element into the drop element
                       ev.target.appendChild(document.getElementById(data));
                   }
         </script>
@@ -502,8 +516,7 @@
 
               </div>
 
-              <!-- Left and right controls -->
-
+          
 
 
 
@@ -572,7 +585,8 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-12 color1 halfHeight40" id="buttonsheading">
+      
+      <div class="col-sm-12 color1 halfHeight20" id="buttonsheading">
         <div class="col-sm-4">
 
         </div>
@@ -580,16 +594,102 @@
           <div class="button-header">
             <div class="marginbottom20 margintop25 marginleft5">
               <h1 class="fontsizeH1 marginleft7">Buttons</h1>
+             
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+<div class="row">
+<div class="col-sm-12 color1 halfHeight20" id="buttonsheading">
+            <div class="col-sm-2"></div>
+        <div class="col-sm-4">
+        	<div class="button-header">
+            <div class="marginbottom20  marginleft10per">
+             
+              <h3 class="fontsizeH3">Alert Buttons</h3>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="button-header">
+            <div class="marginbottom20 	 marginleft5">
+             
               <h3 class="fontsizeH3">Animated Buttons</h3>
             </div>
           </div>
         </div>
       </div>
+
+
+
     </div>
     <div class="row">
       <div class="col-sm-12 color1 halfHeight60">
-        <div class="col-sm-4"></div>
-        <div class="col-sm-5">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-4">
+        	<div>
+        		 <button type="button" onclick="showDefault()" id="alertBasic" class="btn btnsize">Basic</button>
+				  <button type="button" onclick="showPrimary()"  id="alertDefault" class="btn btn-default btnsize hidden">Default</button>
+				  <button type="button" onclick="showSuccess()" id="alertPrimary" class="btn btn-primary btnsize hidden">Primary</button>
+				  <button type="button" onclick="showInfo()" id="alertSucess" class="btn btn-success btnsize hidden">Success</button>
+				  <button type="button" onclick="showWarning()" id="alertInfo" class="btn btn-info btnsize hidden">Info</button>
+				  <button type="button" onclick="showDanger()" id="alertWarning" class="btn btn-warning btnsize hidden">Warning</button>
+				  <button type="button" onclick="showLink()" id="alertDanger" class="btn btn-danger btnsize hidden">Danger</button>
+				  <button type="button" onclick="showBasic()" id="alertLink" class="btn btn-link btnsize hidden">Link</button>  
+				  <script type="text/javascript">
+				  var basicBtn=document.getElementById("alertBasic");
+				  var deafultBtn=document.getElementById("alertDefault");
+				  var primaryBtn=document.getElementById("alertPrimary");
+				  var successBtn=document.getElementById("alertSucess");
+				  var infoBtn=document.getElementById("alertInfo");
+				  var warningBtn=document.getElementById("alertWarning");
+				  var dangerBtn=document.getElementById("alertDanger");
+				  var linkBtn=document.getElementById("alertLink");
+				  function showDefault()
+				  {
+				  	deafultBtn.classList.remove("hidden");
+              		basicBtn.classList.add("hidden");
+				  }
+				  function showPrimary()
+				  {
+				  	primaryBtn.classList.remove("hidden");
+              		deafultBtn.classList.add("hidden");
+				  }
+				  function showSuccess()
+				  {
+				  	successBtn.classList.remove("hidden");
+				  	primaryBtn.classList.add("hidden");
+				  }
+				  function showInfo()
+				  {
+				  	infoBtn.classList.remove("hidden");
+              		successBtn.classList.add("hidden");
+				  }
+				  function showWarning()
+				  {
+				  	warningBtn.classList.remove("hidden");
+              		infoBtn.classList.add("hidden");
+				  }
+				  function showDanger()
+				  {
+				  	dangerBtn.classList.remove("hidden");
+              		warningBtn.classList.add("hidden");
+				  }
+				  function showLink()
+				  {
+				  	linkBtn.classList.remove("hidden");
+              		dangerBtn.classList.add("hidden");
+				  }
+				  function showBasic()
+				  {
+				  	basicBtn.classList.remove("hidden");
+              		linkBtn.classList.add("hidden");
+				  }
+				  </script>
+			</div>
+        </div>
+        <div class="col-sm-4">
           <div class=" marginbottom20 marginleft5">
             <div class="button-img hidden marginleftminus20" id="divbtnImg">
               <img src="images/drag_drop_img.jpg" alt="Landcape Image">
@@ -599,11 +699,13 @@
             <i class="fa fa-circle-o-notch fa-spin"></i>  Loading
             </button>
             <button class="buttonload hidden" id="unloadImg">
-            <i class="fa fa-circle-o-notch fa-counter-spin"></i>  Unloading
+            <i class="fa fa-circle-o-notch fa-counter-spin"></i>  Removing
             </button>
             <button class="button-animated hidden" id="removeImg" onclick="getUnload()"><span class="text-animate">Remove Image</span></button>
 
+
           </div>
+
           <script type="text/javascript">
           var showImg=document.getElementById("showImg");
           var loadImg=document.getElementById("loadImg");
@@ -639,6 +741,8 @@
     </div>
 
 </div>
+
+
 
 
 
