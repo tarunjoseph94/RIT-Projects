@@ -114,7 +114,7 @@
                         w = new Worker("js/time.js");
                     }
                     w.onmessage = function(event) {
-                        document.getElementById("result").innerHTML = event.data;
+                        document.getElementById("resultLocal").innerHTML = event.data;
                         document.getElementById("result").classList.remove("hidden");
                         btnShow.classList.add("hidden");
                         btnHide.classList.remove("hidden");
@@ -237,9 +237,12 @@
           </div>
         </div>
         <div class="col-sm-4">
-          <div id="dragDiv2" ondrop="drop(event)" class="dragDropDiv" ondragover="allowDrop(event)"></div>
+          <div id="dragDiv2" ondrop="drop(event)" class="dragDropDiv" ondragover="allowDrop(event)">
+          
+          </div>
         </div>
         <script>
+        	
                   function allowDrop(ev) {
                       //prevents deafult browser handling of the event
                       ev.preventDefault();
@@ -248,15 +251,21 @@
                   function drag(ev) {
                   	//set data of type dragDropImg with the value of the target div (dragDiv1,dragDiv2)
                       ev.dataTransfer.setData("dragDropImg", ev.target.id);
+                      
                   }	
 
                   function drop(ev) {
                   	//prevents deafult browser handling of the event
                       ev.preventDefault();
-                      //Get data of type dragDropImg adn save it in data
+                      //Gets data of type 
                       var data = ev.dataTransfer.getData("dragDropImg");
+                                        
+                      
                       //Append the dragged element into the drop element
                       ev.target.appendChild(document.getElementById(data));
+                      
+
+
                   }
         </script>
       </div>
@@ -628,7 +637,7 @@
       <div class="col-sm-12 color1 halfHeight60">
         <div class="col-sm-2"></div>
         <div class="col-sm-4">
-        	<div>
+        	<div id="borderDiv" class="">
         		 <button type="button" onclick="showDefault()" id="alertBasic" class="btn btnsize">Basic</button>
 				  <button type="button" onclick="showPrimary()"  id="alertDefault" class="btn btn-default btnsize hidden">Default</button>
 				  <button type="button" onclick="showSuccess()" id="alertPrimary" class="btn btn-primary btnsize hidden">Primary</button>
@@ -646,9 +655,12 @@
 				  var warningBtn=document.getElementById("alertWarning");
 				  var dangerBtn=document.getElementById("alertDanger");
 				  var linkBtn=document.getElementById("alertLink");
+				  //var btnDiv=document.getElementById("borderDiv");
 				  function showDefault()
 				  {
 				  	deafultBtn.classList.remove("hidden");
+				  	//btnDiv.classList.remove("green");
+				  	//btnDiv.classList.add("red");
               		basicBtn.classList.add("hidden");
 				  }
 				  function showPrimary()
