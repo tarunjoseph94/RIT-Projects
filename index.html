@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Self study</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  
+
+  <link rel="stylesheet" href="css/master.css">
+  <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+
+      <a class="navbar-brand" href="#">Self Study</a>
+    </div>
+    <ul class="nav navbar-nav" id="myNavbar">
+      <li ><a href="#geolocationheading">Geo location</a></li>
+      <li><a href="#webworkerheading">Web worker</a></li>
+      <li><a href="#localstorageheading">Local Storage</a></li>
+      <li><a href="#draganddropheading">Drag and Drop</a></li>
+      <li><a href="#calendarheading">Calendar</a></li>
+      <li><a href="#carouselheading">Carousel</a></li>
+      <li><a href="#buttonsheading">Buttons</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container-fluid nopadside">
+
+  <div class="row">
+    <div class="col-sm-12 color1 fullHeight" id="geolocationheading">
+      <div class=" margintop50">
+        <div class="geolocation">
+          <div class="col-sm-4"></div>
+          <div class="col-sm-5 marginbottom20">
+            <div class="marginleft5 marginbottom20 margintop25">
+            <h1 class="fontsizeH1">Geolocation</h1>
+            <h3 class="marginleft10per fontsizeH3">Your location is</h3>
+
+            <button type="button" onclick="getLocation()" class="btn btnsize btn-primary btncolor marginleft6"> Click Here </button>
+            </div>
+            <div id="map" class="marginleftminus15">
+
+            </div>
+
+              <script>
+              //Get div div for displying maps
+             // var x = document.getElementById("map");
+
+              function getLocation() {
+                  if (navigator.geolocation) {
+                      navigator.geolocation.getCurrentPosition(showPosition, showError);
+                  } else {
+                      x.innerHTML = "Geolocation is not supported by this browser.";
+                  }
+              }
+              function showPosition(position) {
+                  var latlon = position.coords.latitude + "," + position.coords.longitude;
+                  var img_url = "https://maps.googleapis.com/maps/api/staticmap?center="
+                  +latlon+"&zoom=14&markers="+latlon+"&size=400x300&key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU";
+                  document.getElementById("map").innerHTML = "<img src='"+img_url+"'>";
+              }
+                function showError(error) {
+                  switch(error.code) {
+                      case error.PERMISSION_DENIED:
+                          alert("User denied the request for Geolocation.");
+                          break;
+                      case error.POSITION_UNAVAILABLE:
+                          alert("Location information is unavailable.");
+                          break;
+                      case error.TIMEOUT:
+                          alert("The request to get user location timed out.");
+                          break;
+                      case error.UNKNOWN_ERROR:
+                          alert("An unknown error occurred.");
+                          break;
+                  }
+              }
+              </script>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-sm-12 color2 fullHeight" id="webworkerheading">
+      <div class="webworker">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-5">
+          <div class="marginleft5 marginbottom20 margintop25">
+          <h1 class="fontsizeH1">Web worker</h1>
+          <h3 class="fontsizeH3">The Current time is</h3>
+          <h3 class="fontsizeH3 marginleft15" id="result"></h3>
+
+
+          <button type="button" id="workerStart" onclick="startWork()" class="btn btnsize btn-primary btncolor marginleft10"> Start worker</button>
+          <button type="button" id="workerEnd" onclick="stopWorker()" class="btn btnsize btn-primary btncolor marginleft10 hidden"> End worker </button>
+          <script>
+            var w;
+            var btnShow = document.getElementById("workerStart");
+            var btnHide = document.getElementById("workerEnd");
+            function startWork() {
+            	//Check if worker alrady exists
+                if(typeof(Worker) !== "undefined") {
+                    if(typeof(w) == "undefined") {
+                    	//Create a new web worker
+                        w = new Worker("js/time.js");
+                    }
+                    w.onmessage = function(event) {
+                        document.getElementById("result").innerHTML = event.data;
+                        document.getElementById("result").classList.remove("hidden");
+                        btnShow.classList.add("hidden");
+                        btnHide.classList.remove("hidden");
+                    };
+                } else {
+                    document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Workers...";
+                }
+            }
+
+            function stopWorker() {
+            	//stop the current worker
+                w.terminate();
+                //To reuse the variable for use later 
+                w = undefined;
+                document.getElementById("result").classList.add("hidden");
+                btnHide.classList.add("hidden");
+                btnShow.classList.remove("hidden");
+            }
+          </script>
+        </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12 color1 fullHeight" id="localstorageheading">
+
+        <div class="localStorage">
+          <div class="col-sm-4">
+
+          </div>
+          <div class="col-sm-5 ">
+            <div class=" marginleft5 margintop25 marginbottom20">
+
+
+
+          <h1 class="fontsizeH1 marginleftminus45">Local Storage</h1>
+          <h3 class="fontsizeH3 marginleft10per">Enter Text</h3>
+          <form class="">
+            <input type="text" id="textLocal" class="form-control width50 height50px fontsize25 marginbottom20 marginleft5">
+          </form>
+          <button type="button" onclick="pushLocal()" class="btn btn-primary btnsize btncolor marginbottom20"> Enter data </button>
+          <div class="localDataResult marginleft6 marginbottom20">
+          <h3 id="localHeading" class="hidden fontsizeH3 ">Data Entered</h3>
+
+            <h3 id="resultLocal" class="paddingleft30"></h3>
+          </div>
+
+          <script>
+          var old = localStorage.getItem("local");
+          var localHeading=document.getElementById("localHeading");
+            // Check browser support
+            function pushLocal() {
+              if (typeof(Storage) !== "undefined") {
+                  // Take data from textbox adn store in  variable localData
+
+                  var localData=document.getElementById("textLocal").value;
+                  //Check for old data
+
+                  if(old === null)
+                  {
+                  old = "";
+              		}
+                  //store the data in the from the variabel in local storage
+                  localStorage.setItem("local", old+localData+"<br>");
+                  //Retrive the data stored after entering
+                  document.getElementById("resultLocal").innerHTML = localStorage.getItem("local");
+                  //Show heading
+                  localHeading.classList.remove("hidden");
+              } else {
+
+                  document.getElementById("resultLocal").innerHTML = "Sorry, your browser does not support Web Storage...";
+              }
+            }
+            //Show heading if data already entered
+            if(old!=null)
+            {
+
+              localHeading.classList.remove("hidden");
+            }
+            // Retrieve data for refresh
+            document.getElementById("resultLocal").innerHTML = localStorage.getItem("local");
+
+
+
+        </script>
+        </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+
+  <div class="row">
+    <div class="col-sm-12 color2 halfHeight40" id="draganddropheading">
+      <div class="dragDrop">
+        <div class="col-sm-4">
+
+        </div>
+        <div class="col-sm-6">
+          <div class="margintop25 marginbottom20">
+            <h1 class="fontsizeH1 marginleftminus45">Drag and Drop</h1>
+            <h3 class="fontsizeH3 marginleftminus15per">Drag the image to the other box</h3>
+          </div>
+        </div>
+      </div>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 color2 halfHeight60">
+        <div class="col-sm-2">
+
+        </div>
+        <div class="col-sm-4 ">
+          <div id="dragDiv1" class=" dragDropDiv " ondrop="drop(event)" ondragover="allowDrop(event)">
+            <img src="images/drag_drop_img.jpg" draggable="true" ondragstart="drag(event)" id="dragImg" >
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div id="dragDiv2" ondrop="drop(event)" class="dragDropDiv" ondragover="allowDrop(event)"></div>
+        </div>
+        <script>
+                  function allowDrop(ev) {
+                      //prevents deafult browser handling of the event
+                      ev.preventDefault();
+                  }
+
+                  function drag(ev) {
+                  	//set data of type dragDropImg with the value of the target div (dragDiv1,dragDiv2)
+                      ev.dataTransfer.setData("dragDropImg", ev.target.id);
+                  }	
+
+                  function drop(ev) {
+                  	//prevents deafult browser handling of the event
+                      ev.preventDefault();
+                      //Get data of type dragDropImg adn save it in data
+                      var data = ev.dataTransfer.getData("dragDropImg");
+                      //Append the dragged element into the drop element
+                      ev.target.appendChild(document.getElementById(data));
+                  }
+        </script>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 color1 halfHeight40" id="calendarheading">
+
+          <div class="calender">
+            <div class="col-sm-4">
+
+            </div>
+            <div class="col-sm-5">
+              <div class="margintop25 marginleft8">
+
+
+
+            <h1 class="fontsizeH1 ">Calendar</h1>
+              <h3 class="marginleftminus45 fontsizeH3">Static CSS calender</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+        <div class="row ">
+          <div class="col-sm-12 color1 halfHeight60 ">
+            <div class="calendar ">
+          <div class="col-sm-2 marginleft3"></div>
+          <div class="col-sm-7">
+            <div id="myCalendar" class="carousel slide marginbottom20" data-ride="carousel" data-interval="false">
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner">
+                <div class="item active">
+                <div class="January">
+                  <div class="month">
+                      <ul>
+                          <a class="carousel-control calendar" href="#myCalendar" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="right-arrow carousel-control calendar" href="#myCalendar" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+              </a>
+                        <li>
+                          January<br>
+                          <span style="font-size:18px">2018</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <ul class="weekdays">
+                      <li>Mo</li>
+                      <li>Tu</li>
+                      <li>We</li>
+                      <li>Th</li>
+                      <li>Fr</li>
+                      <li>Sa</li>
+                      <li>Su</li>
+                    </ul>
+
+                    <ul class="days">
+                      <li class="notmonth">31</li>
+                      <li>1</li>
+                      <li>2</li>
+                      <li>3</li>
+                      <li>4</li>
+                      <li>5</li>
+                      <li>6</li>
+                      <li>7</li>
+                      <li>8</li>
+                      <li>9</li>
+                      <li>10</li>
+                      <li>11</li>
+                      <li>12</li>
+                      <li><span class="active">13</span></li>
+                      <li>14</li>
+                      <li>15</li>
+                      <li>16</li>
+                      <li>17</li>
+                      <li>18</li>
+                      <li>19</li>
+                      <li>20</li>
+                      <li>21</li>
+                      <li>22</li>
+                      <li>23</li>
+                      <li>24</li>
+                      <li>25</li>
+                      <li>26</li>
+                      <li>27</li>
+                      <li>28</li>
+                      <li>29</li>
+                      <li>30</li>
+                      <li>31</li>
+                      <li class="notmonth">1</li>
+                      <li class="notmonth">2</li>
+                      <li class="notmonth">3</li>
+                    </ul>
+                </div>
+                </div>
+
+
+                <div class="item">
+                        <div class="February">
+                  <div class="month">
+                      <ul>
+                          <a class="carousel-control calendar" href="#myCalendar" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="right-arrow carousel-control calendar" href="#myCalendar" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+              </a>
+                        <li>
+                          February<br>
+                          <span style="font-size:18px">2018</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <ul class="weekdays">
+                      <li>Mo</li>
+                      <li>Tu</li>
+                      <li>We</li>
+                      <li>Th</li>
+                      <li>Fr</li>
+                      <li>Sa</li>
+                      <li>Su</li>
+                    </ul>
+
+                    <ul class="days">
+                      <li class="notmonth">28</li>
+                      <li class="notmonth">29</li>
+                      <li class="notmonth">30</li>
+                      <li class="notmonth">31</li>
+
+                      <li>1</li>
+                      <li>2</li>
+                      <li>3</li>
+                      <li>4</li>
+                      <li>5</li>
+                      <li>6</li>
+                      <li>7</li>
+                      <li>8</li>
+                      <li>9</li>
+                      <li>10</li>
+                      <li>11</li>
+                      <li>12</li>
+                      <li>13</li>
+                      <li>14</li>
+                      <li>15</li>
+                      <li>16</li>
+                      <li>17</li>
+                      <li>18</li>
+                      <li>19</li>
+                      <li>20</li>
+                      <li>21</li>
+                      <li>22</li>
+                      <li>23</li>
+                      <li>24</li>
+                      <li>25</li>
+                      <li>26</li>
+                      <li>27</li>
+                      <li>28</li>
+
+                      <li class="notmonth">1</li>
+                      <li class="notmonth">2</li>
+                      <li class="notmonth">3</li>
+                    </ul>
+                </div>
+                </div>
+
+                <div class="item">
+                        <div class="March">
+                  <div class="month">
+                      <ul>
+                          <a class="carousel-control calendar" href="#myCalendar" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="right-arrow carousel-control calendar" href="#myCalendar" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+              </a>
+                        <li>
+                          March<br>
+                          <span style="font-size:18px">2018</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <ul class="weekdays">
+                      <li>Mo</li>
+                      <li>Tu</li>
+                      <li>We</li>
+                      <li>Th</li>
+                      <li>Fr</li>
+                      <li>Sa</li>
+                      <li>Su</li>
+                    </ul>
+
+                    <ul class="days">
+                      <li class="notmonth">25</li>
+                      <li class="notmonth">26</li>
+                      <li class="notmonth">27</li>
+                      <li class="notmonth">28</li>
+                      <li class="notmonth">28</li>
+
+
+                      <li>1</li>
+                      <li>2</li>
+                      <li>3</li>
+                      <li>4</li>
+                      <li>5</li>
+                      <li>6</li>
+                      <li>7</li>
+                      <li>8</li>
+                      <li>9</li>
+                      <li>10</li>
+                      <li>11</li>
+                      <li>12</li>
+                      <li>13</li>
+                      <li>14</li>
+                      <li>15</li>
+                      <li>16</li>
+                      <li>17</li>
+                      <li>18</li>
+                      <li>19</li>
+                      <li>20</li>
+                      <li>21</li>
+                      <li>22</li>
+                      <li>23</li>
+                      <li>24</li>
+                      <li>25</li>
+                      <li>26</li>
+                      <li>27</li>
+                      <li>28</li>
+
+                      <li >29</li>
+                      <li >30</li>
+                      <li >31</li>
+
+                      <li class="notmonth">1</li>
+                      <li class="notmonth">2</li>
+                      <li class="notmonth">3</li>
+                      <li class="notmonth">4</li>
+                      <li class="notmonth">5</li>
+                      <li class="notmonth">6</li>
+                    </ul>
+                </div>
+                </div>
+
+                </div>
+
+
+              </div>
+
+          
+
+
+
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 color2 halfHeight40" id="carouselheading">
+        <div class="col-sm-4">
+
+        </div>
+        <div class="col-sm-5">
+          <div class="carousel-heading">
+            <div class="marginbottom20 margintop25 marginleft8">
+              <h1 class="fontsizeH1 ">Carousel</h1>
+              <h3 class="fontsizeH3 marginleftminus5">Image Slideshow</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 color2 halfHeight60">
+        <div class="col-sm-4">
+
+        </div>
+        <div class="col-sm-4 marginleft2">
+          <div class="carousel marginbottom20 marginleftminus30 ">
+
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+               <!-- Indicators -->
+               <ol class="carousel-indicators">
+                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                 <li data-target="#myCarousel" data-slide-to="1"></li>
+                 <li data-target="#myCarousel" data-slide-to="2"></li>
+               </ol>
+
+               <!-- Wrapper for slides -->
+               <div class="carousel-inner">
+                 <div class="item active">
+                   <img src="images/drag_drop_img.jpg"  style="width:100%;">
+                 </div>
+
+                 <div class="item">
+                   <img src="images/carousel-2.jpg"  style="width:100%;">
+                 </div>
+
+                 <div class="item">
+                   <img src="images/carousel-3.jpg"  style="width:100%;">
+                 </div>
+               </div>
+
+               <!-- Left and right controls -->
+               <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                 <span class="glyphicon glyphicon-chevron-left"></span>
+                 <span class="sr-only">Previous</span>
+               </a>
+               <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                 <span class="glyphicon glyphicon-chevron-right"></span>
+                 <span class="sr-only">Next</span>
+               </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      
+      <div class="col-sm-12 color1 halfHeight20" id="buttonsheading">
+        <div class="col-sm-4">
+
+        </div>
+        <div class="col-sm-5">
+          <div class="button-header">
+            <div class="marginbottom20 margintop25 marginleft5">
+              <h1 class="fontsizeH1 marginleft7">Buttons</h1>
+             
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+<div class="row">
+<div class="col-sm-12 color1 halfHeight20" id="buttonsheading">
+            <div class="col-sm-2"></div>
+        <div class="col-sm-4">
+        	<div class="button-header">
+            <div class="marginbottom20  marginleft10per">
+             
+              <h3 class="fontsizeH3">Alert Buttons</h3>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="button-header">
+            <div class="marginbottom20 	 marginleft5">
+             
+              <h3 class="fontsizeH3">Animated Buttons</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+    <div class="row">
+      <div class="col-sm-12 color1 halfHeight60">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-4">
+        	<div>
+        		 <button type="button" onclick="showDefault()" id="alertBasic" class="btn btnsize">Basic</button>
+				  <button type="button" onclick="showPrimary()"  id="alertDefault" class="btn btn-default btnsize hidden">Default</button>
+				  <button type="button" onclick="showSuccess()" id="alertPrimary" class="btn btn-primary btnsize hidden">Primary</button>
+				  <button type="button" onclick="showInfo()" id="alertSucess" class="btn btn-success btnsize hidden">Success</button>
+				  <button type="button" onclick="showWarning()" id="alertInfo" class="btn btn-info btnsize hidden">Info</button>
+				  <button type="button" onclick="showDanger()" id="alertWarning" class="btn btn-warning btnsize hidden">Warning</button>
+				  <button type="button" onclick="showLink()" id="alertDanger" class="btn btn-danger btnsize hidden">Danger</button>
+				  <button type="button" onclick="showBasic()" id="alertLink" class="btn btn-link btnsize hidden">Link</button>  
+				  <script type="text/javascript">
+				  var basicBtn=document.getElementById("alertBasic");
+				  var deafultBtn=document.getElementById("alertDefault");
+				  var primaryBtn=document.getElementById("alertPrimary");
+				  var successBtn=document.getElementById("alertSucess");
+				  var infoBtn=document.getElementById("alertInfo");
+				  var warningBtn=document.getElementById("alertWarning");
+				  var dangerBtn=document.getElementById("alertDanger");
+				  var linkBtn=document.getElementById("alertLink");
+				  function showDefault()
+				  {
+				  	deafultBtn.classList.remove("hidden");
+              		basicBtn.classList.add("hidden");
+				  }
+				  function showPrimary()
+				  {
+				  	primaryBtn.classList.remove("hidden");
+              		deafultBtn.classList.add("hidden");
+				  }
+				  function showSuccess()
+				  {
+				  	successBtn.classList.remove("hidden");
+				  	primaryBtn.classList.add("hidden");
+				  }
+				  function showInfo()
+				  {
+				  	infoBtn.classList.remove("hidden");
+              		successBtn.classList.add("hidden");
+				  }
+				  function showWarning()
+				  {
+				  	warningBtn.classList.remove("hidden");
+              		infoBtn.classList.add("hidden");
+				  }
+				  function showDanger()
+				  {
+				  	dangerBtn.classList.remove("hidden");
+              		warningBtn.classList.add("hidden");
+				  }
+				  function showLink()
+				  {
+				  	linkBtn.classList.remove("hidden");
+              		dangerBtn.classList.add("hidden");
+				  }
+				  function showBasic()
+				  {
+				  	basicBtn.classList.remove("hidden");
+              		linkBtn.classList.add("hidden");
+				  }
+				  </script>
+			</div>
+        </div>
+        <div class="col-sm-4">
+          <div class=" marginbottom20 marginleft5">
+            <div class="button-img hidden marginleftminus20" id="divbtnImg">
+              <img src="images/drag_drop_img.jpg" alt="Landcape Image">
+            </div>
+            <button class="button-animated" onclick="getLoad()" id="showImg"><span class="text-animate">Show Image </span></button>
+            <button class="buttonload hidden" id="loadImg">
+            <i class="fa fa-circle-o-notch fa-spin"></i>  Loading
+            </button>
+            <button class="buttonload hidden" id="unloadImg">
+            <i class="fa fa-circle-o-notch fa-counter-spin"></i>  Removing
+            </button>
+            <button class="button-animated hidden" id="removeImg" onclick="getUnload()"><span class="text-animate">Remove Image</span></button>
+
+
+          </div>
+
+          <script type="text/javascript">
+          var showImg=document.getElementById("showImg");
+          var loadImg=document.getElementById("loadImg");
+          var unloadImg=document.getElementById("unloadImg");
+          var removeImg=document.getElementById("removeImg");
+          var divbtnImg=document.getElementById("divbtnImg");
+            function getLoad() {
+              loadImg.classList.remove("hidden");
+              showImg.classList.add("hidden");
+              window.setTimeout(getImage, 5000);
+            }
+            function getUnload()
+            {
+            	unloadImg.classList.remove("hidden");
+              	removeImg.classList.add("hidden");
+              	window.setTimeout(removeImage, 5000);
+            }
+            function removeImage() {
+              showImg.classList.remove("hidden");
+              removeImg.classList.add("hidden");
+              divbtnImg.classList.add("hidden");
+              unloadImg.classList.add("hidden");
+            }
+            function getImage() {
+              divbtnImg.classList.remove("hidden");
+              removeImg.classList.remove("hidden");
+              loadImg.classList.add("hidden");
+
+            }
+          </script>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+  <script src="js/jquery-1.12.4.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/time.js"></script>
+  <script src="js/smoothScroll.js"></script>
+</body>
+</html>
