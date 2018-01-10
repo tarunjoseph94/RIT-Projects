@@ -37,8 +37,10 @@
 .color2
 {
   background: #7f8c8d;
-
-
+}
+.btncolor
+{
+  background: #2c3e50;
 }
 .marginleft3
 {
@@ -335,3 +337,4 @@ body {font-family: Verdana, sans-serif;}
   }
 }
 /*end counter clockwise spin*/
+
