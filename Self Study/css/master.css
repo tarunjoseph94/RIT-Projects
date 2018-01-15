@@ -1,0 +1,340 @@
+.nopadside
+{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.fullHeight
+{
+  min-height: 100vh;
+}
+.halfHeight40
+{
+  min-height: 40vh;
+}
+.halfHeight60
+{
+  min-height: 60vh;
+}
+.halfHeight20
+{
+  min-height: 20vh;
+}
+.color1
+{
+  background: #bdc3c7;
+
+}
+.btnsize
+{
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 300px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+.color2
+{
+  background: #7f8c8d;
+}
+.btncolor
+{
+  background: #2c3e50;
+}
+.marginleft3
+{
+  margin-left: 3%;
+}
+.marginleft8
+{
+  margin-left: 8%;
+}
+.marginleftminus30
+{
+  margin-left: -30%;
+}
+.margintop50
+{
+  margin-top: 50px;
+}
+.margintop25
+{
+  margin-top: 25%;
+}
+.margintop65
+{
+  margin-top: 65%;
+}
+
+.marginleft10per
+{
+  margin-left: 10%;
+}
+.marginleft5
+{
+  margin-left: 5%;
+}
+.marginleft6
+{
+  margin-left: 6%;
+}
+.marginleft15
+{
+  margin-left: 15%;
+}
+.width50
+{
+  width:50%;
+}
+.height50px
+{
+  height: 50px;
+}
+.fontsize25
+{
+  font-size: 25px;
+}
+.marginleftminus15per
+{
+  margin-left: -15%;
+}
+.marginbottom20
+{
+  margin-bottom: 20px;
+}
+.marginleftminus20
+{
+  margin-left: -20px;
+}
+.marginleft10
+{
+  margin-left: 10px;
+}
+.marginleft20
+{
+  margin-left: 20px;
+}
+.fontsizeH1
+{
+  font-size: 60px;
+}
+.fontsizeH3
+{
+  font-size: 35px;
+}
+.hidden
+{
+  display: none;
+}
+.width35
+{
+  width:35%;
+}
+.paddingleft30
+{
+  padding-left: 30px;
+}
+.marginleftminus15
+{
+  margin-left: -15px;
+}
+.dragDropDiv {
+    float: left;
+    width: 400px;
+    height: 210px;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid black;
+}
+.marginleft30
+{
+  margin-left: 30%;
+}
+.marginleftminus45
+{
+  margin-left: -45px;
+}
+/*calender*/
+* {box-sizing: border-box;}
+ul {list-style-type: none;}
+body {font-family: Verdana, sans-serif;}
+.month {
+    padding: 70px 25px;
+    width: 100%;
+    background: #2c3e50;
+    text-align: center;
+}
+.month ul {
+    margin: 0;
+    padding: 0;
+}
+.month ul li {
+    color: white;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+.month .prev {
+    float: left;
+    padding-top: 10px;
+}
+.month .next {
+    float: right;
+    padding-top: 10px;
+}
+.weekdays {
+    margin: 0;
+    padding: 10px 0;
+    background-color: #ddd;
+}
+.weekdays li {
+    display: inline-block;
+    width: 13.6%;
+    color: #666;
+    text-align: center;
+}
+.days {
+    padding: 10px 0;
+    background: #eee;
+
+    margin: 0;
+}
+.days li {
+    list-style-type: none;
+    display: inline-block;
+    width: 13.6%;
+    text-align: center;
+    margin-bottom: 5px;
+    font-size:12px;
+    color: #777;
+}
+.days li .active {
+    padding: 5px;
+    background: #2c3e50;
+    color: white ;
+}
+.right-arrow
+{
+  right: 0;
+  left:auto;
+}
+.carousel-control.calendar
+{
+  top:90px;
+  bottom: unset;
+}
+.notmonth
+{
+  color: #cbcbcb !important;
+}
+/*End calender*/
+.row
+{
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.marginleftminus25
+{
+  margin-left: -25px;
+}
+.marginleftminus5
+{
+  margin-left: -5%;
+}
+.marginleft2
+{
+  margin-left: 2%;
+}
+.marginleft7
+{
+  margin-left: 7%;
+}
+
+/*Animated Button*/
+.button-animated {
+  border-radius: 4px;
+  background-color: #2c3e50;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 300px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+.button-animated span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+/*position and type at the start of animation*/
+.button-animated span:after {
+  content: '\00ab';
+  position: absolute;
+  opacity: 0;
+  top: -7px;
+  font-size: 28px;
+  right: 12px;
+  transition: 1s;
+}
+.button-animated span:before {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: -8px;
+  font-size: 28px;
+  left: 20px;
+  transition: 1s;
+}
+/*padding to the text on hover*/
+.button-animated:hover .text-animate {
+  font-size:  18px;
+}
+/*posotion of arrow at the end animation*/
+.button-animated:hover span:after {
+  opacity: 1;
+  right: -20px;
+}
+.button-animated:hover span:before {
+  opacity: 1;
+  left: -24px;
+}
+/*End Animated Button */
+.button-content {
+    margin-left: 15%;
+}
+.buttonload {
+  border-radius: 4px;
+  background-color: #2c3e50;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 300px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+/*counter clockwise spin*/
+.fa-counter-spin {
+  -webkit-animation: spin-counter 2s infinite linear;
+  -moz-animation: spin-counter 2s infinite linear;
+  -o-animation: spin-counter 2s infinite linear;
+  animation: spin-counter 2s infinite linear;
+}
+
+@keyframes spin-counter {
+  0% {
+    transform: rotate(359deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+/*end counter clockwise spin*/
+
